@@ -1,0 +1,11 @@
+.frosted-glass-content {
+    /* width: 400px; */
+    min-height: 85vh;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5); /* 半透明的白色背景 */
+    backdrop-filter: blur(10px); /* 磨砂效果 */
+    border-radius: 15px; /* 圆角 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    text-align: center;
+  }
+  
