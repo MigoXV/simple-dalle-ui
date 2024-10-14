@@ -95,30 +95,18 @@ const DalleForm = ({ children, setResult, setRevisedPrompt, loading, setLoading 
                     <br />
                 </>
             )}
-            {/* <DalleChatInputArea
+            <DalleChatInputArea
                 name="image_prompt"
                 placeholder="A beautiful skyline of New York"
                 value={ImagePrompt}
                 onChange={(e) => setImagePrompt(e.target.value)}
                 disabled={loading}
-                rows={2}
-                // style={{ width: "40vw", maxWidth: '50vw', margin: '0 auto', display: 'block' }}
-            /> */}
-            {/* <textarea
-                name="image_prompt"
-                placeholder="A beautiful skyline of New York"
-                value={ImagePrompt}
-                onChange={(e) => setImagePrompt(e.target.value)}
-                disabled={loading}
-                rows="2"
-                style={{ width: '100%', maxWidth: '300px', margin: '0 auto', display: 'block' }}
-            /> */}
+            />
             <GradientButton
                 htmlType="submit"
                 disabled={loading}
                 style={{ width: '100%', maxWidth: '300px', padding: '10px 16px', margin: '10px auto', display: 'block' }}  // 控制按钮宽度和内边距
             >{loading ? "生成中..." : "启动生成"}</GradientButton>
-            {/* <input type="submit" value={loading ? "Generating image..." : "Generate image"} disabled={loading} /> */}
         </form>
     );
 }

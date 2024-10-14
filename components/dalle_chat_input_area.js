@@ -10,28 +10,22 @@ import { Flexbox } from 'react-layout-kit';
 
 export default (props) => {
     return (
-        <>
-        <Flexbox style={{ maxWidth: '80%', maxHeight: '80%', width: '100%', height: 'auto' }}></Flexbox>
+        <Flexbox style={{ height: '20vh', position: 'relative' }}>
         <ChatInputArea
-            // style={{ maxWidth: '80%', maxHeight: '80%', width: '100%', height: 'auto' }}
+            style={{ maxWidth: '80%', maxHeight: '80%', width: '100%', height: 'auto', background: 'rgba(255, 255, 255, 0)' }}
             topAddons={
                 <div>
                     <ChatInputActionBar
                         leftAddons={
-                            <>
-                                {/* <ActionIcon icon={Languages} />
-                            <ActionIcon icon={Eraser} /> */}
                                 <TokenTag maxValue={4096} value={props.value.length} />
-                            </>
                         }
                     />
-                    {props.value}
+                    {/* {props.value} */}
                 </div>
-
             }
             // enterButton = {true}
             {...props}
         />
-        </>
+        </Flexbox>
     );
 };
