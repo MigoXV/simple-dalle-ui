@@ -17,13 +17,14 @@ export default function Home() {
         <div>
           <Head>
             <title>Vectura.ai - simple DALL-E3 FrontEnd</title>
-            <link rel="icon" href="/image-gen/vai-dalle-gen-icon.png" />
+            <link rel="icon" href="/image-gen/icon.png" />
           </Head>
           <main className={styles.main}>
 
-            <img src="/image-gen/LOGO2024.jpg" className={styles.icon} />
-            <h3>DALLE绘图</h3>
-            <h5>中南大学-电子设计爱好者协会</h5>
+            <img src="/image-gen/LOGO2024.png" className={styles.icon} />
+            <h4>DALLE绘图</h4>
+            中南大学-电子设计爱好者协会<br />
+            <br />
             <DalleForm setResult={setResult} setRevisedPrompt={setRevisedPrompt} loading={loading} setLoading={setLoading} />
             {loading && <div><small>图片正在生成，请耐心等待</small></div>}
             <a href={result} target="_blank" rel="noopener noreferrer">
