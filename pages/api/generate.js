@@ -1,9 +1,10 @@
 const { Configuration, OpenAIApi } = require("openai");
-let debug = false;
+let debug = true;
 
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: "",
+  basePath: "http://127.0.0.1:8000"
 });
 const openai = new OpenAIApi(configuration);
 

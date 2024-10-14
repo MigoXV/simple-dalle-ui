@@ -1,11 +1,11 @@
 @font-face {
   font-family: "ColfaxAI";
-  src: url(/image-gen/fonts/ColfaxAIRegular.woff2)
-      format("woff2"),
+  src: url(/image-gen/fonts/ColfaxAIRegular.woff2) format("woff2"),
     url(/image-gen/fonts/ColfaxAIRegular.woff) format("woff");
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "ColfaxAI";
   src: url(/image-gen/fonts/ColfaxAIBold.woff2) format("woff2"),
@@ -13,6 +13,7 @@
   font-weight: bold;
   font-style: normal;
 }
+
 .main,
 .main input {
   font-size: 16px;
@@ -20,15 +21,18 @@
   color: #353740;
   font-family: "ColfaxAI", Helvetica, sans-serif;
 }
+
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
 }
+
 .main .icon {
-  width: 120px;
+  width: 200px;
 }
+
 .main h3 {
   font-size: 32px;
   line-height: 40px;
@@ -36,17 +40,19 @@
   color: #202123;
   margin: 16px 0 40px;
 }
+
 .main form {
   display: flex;
   flex-direction: column;
   width: 360px;
 }
+
 .main input[type="text"] {
   padding: 12px 16px;
-  border: 1px solid #10a37f;
+  border: 1px solid #353740;
   border-radius: 4px;
   margin-bottom: 24px;
-  outline-color: #10a37f;
+  outline-color: #353740;
 }
 
 .main textarea {
@@ -55,7 +61,7 @@
   color: #353740;
   font-family: "ColfaxAI", Helvetica, sans-serif;
   padding: 12px 16px;
-  border: 1px solid #10a37f;
+  border: 1px solid #353740;
   border-radius: 4px;
   margin-bottom: 24px;
   outline-color: #10a37f;
@@ -63,7 +69,7 @@
 
 .main input[type="textarea"] {
   padding: 12px 16px;
-  border: 1px solid #10a37f;
+  border: 1px solid #353740;
   border-radius: 4px;
   margin-bottom: 24px;
   outline-color: #10a37f;
@@ -73,6 +79,7 @@
   color: #8e8ea0;
   opacity: 1;
 }
+
 .main input[type="submit"] {
   padding: 12px 0;
   color: #fff;
@@ -82,20 +89,22 @@
   text-align: center;
   cursor: pointer;
 }
+
 .main input[type="submit"]:disabled {
   color: #fff;
   background-color: grey;
 }
+
 .main .result {
   display: block;
-  max-width: 450px;
-  border: 1px solid #ccc;
+  max-width: min(450px, 75vw);
+  border: 1px solid #3d3c3c;
   padding: 10px;
   margin-top: 40px;
 }
 
 .main a {
   text-decoration: none;
-  color: #10a37f;
+  color: #353740;
+  text-decoration: underline;
 }
-
