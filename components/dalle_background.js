@@ -21,13 +21,9 @@ const FrostedGlassLayoutWithBackground = ({ children }) => {
                     overflowY: 'auto', // 允许内容部分垂直滚动
                 }}
             >
-                <Row justify="center" align="middle" style={{ minHeight: '100%' }}>
-                    <Col style={{ width: '80%' }}>
-                        <div className={styles["frosted-glass-content"]} max-width="100%">
-                            {children}
-                        </div>
-                    </Col>
-                </Row>
+                <div className={styles["frosted-glass-content"]} max-width="100%">
+                    {children}
+                </div>
             </Content>
         </Layout>
     );
