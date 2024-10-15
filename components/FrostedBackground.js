@@ -4,7 +4,7 @@ import styles from '../styles/mask.module.css'; // 引入自定义的样式文�
 
 const { Content } = Layout;
 
-const FrostedGlassLayoutWithBackground = ({ children }) => {
+const FrostedBackground = ({ children }) => {
     return (
         <Layout
             style={{
@@ -29,4 +29,4 @@ const FrostedGlassLayoutWithBackground = ({ children }) => {
     );
 }
 
-export default FrostedGlassLayoutWithBackground;
+export default FrostedBackground;

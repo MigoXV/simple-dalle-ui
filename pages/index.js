@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "../styles/index.module.css";
-import DalleForm from "../components/dalle_form";
+import DalleForm from "../components/DalleForm";
 import ResultArea from "../components/ResultArea";
 import EABasicInformation from "../components/EABasicInformation";
-import FrostedGlassLayoutWithBackground from "../components/dalle_background";
+import FrostedBackground from "../components/FrostedBackground";
 import { ThemeProvider } from "@lobehub/ui";
 
 export default function Home() {
@@ -20,13 +20,13 @@ export default function Home() {
         <link rel="icon" href="/image-gen/icon.png" />
       </Head>
       <ThemeProvider enableGlobalStyle={true} defaultThemeMode="light" enableWebfonts={true} customTheme={{ neutralColor: 'mauve', primaryColors: "orange" }}>
-        <FrostedGlassLayoutWithBackground>
+        <FrostedBackground>
           <main className={styles.main}>
             <EABasicInformation />
             <DalleForm setResult={setResult} setRevisedPrompt={setRevisedPrompt} loading={loading} setLoading={setLoading} />
             <ResultArea loading={loading} result={result} revised_prompt={revised_prompt} />
           </main>
-        </FrostedGlassLayoutWithBackground>
+        </FrostedBackground>
       </ThemeProvider>
     </>
   );
