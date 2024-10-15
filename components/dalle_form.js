@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from "react";
 import { Input } from 'antd';
-import { GradientButton, ChatInputArea } from "@lobehub/ui";
-import DalleChatInputArea from './dalle_chat_input_area';
+import { GradientButton } from "@lobehub/ui";
 
-const DalleForm = ({ children, setResult, setRevisedPrompt, loading, setLoading }) => {
+
+const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
     const [ImagePrompt, setImagePrompt] = useState("");
     const [ImageQuality, setImageQuality] = useState("standard"); // 'hd', 'standard'
     const [ImageResolution, setImageResolution] = useState("1024x1024"); // 1024x1024, 1024x1792, 1792x1024
@@ -12,8 +12,11 @@ const DalleForm = ({ children, setResult, setRevisedPrompt, loading, setLoading 
     const [ImagePromptStyle, setImagePromptStyle] = useState("dalle3"); // 'dalle3' => no pre-prompt D3 does prompt-enhancement; 'gpt4' => pass to GPT4 to enhance prompt
     const [advancedSettingsVisible, setAdvancedSettingsVisible] = useState(false);
 
+    const {TextArea} = Input;
+
     async function onSubmit(event) {
         event.preventDefault();
+
         setLoading(true);
         try {
             const response = await fetch("/image-gen/api/generate", {
@@ -50,7 +53,7 @@ const DalleForm = ({ children, setResult, setRevisedPrompt, loading, setLoading 
             <a href="#" onClick={() => setAdvancedSettingsVisible(!advancedSettingsVisible)}>点这里展开高级设定</a>
             {advancedSettingsVisible && (
                 <>
-                    <div style={{ border: '1px solid #10a37f', borderRadius: '5px', padding: '12px 16px' }}>
+                    <div style={{ border: '1px solid #353740', borderRadius: '5px', padding: '12px 16px' }}>
                         <p>
                             <label>
                                 Quality: &nbsp;
@@ -95,12 +98,21 @@ const DalleForm = ({ children, setResult, setRevisedPrompt, loading, setLoading 
                     <br />
                 </>
             )}
-            <DalleChatInputArea
+            {/* <DalleChatInputArea
                 name="image_prompt"
                 placeholder="A beautiful skyline of New York"
                 value={ImagePrompt}
                 onChange={(e) => setImagePrompt(e.target.value)}
                 disabled={loading}
+            /> */}
+            <TextArea
+                name="image_prompt"
+                placeholder="A beautiful skyline of New York"
+                value={ImagePrompt}
+                onChange={(e) => setImagePrompt(e.target.value)}
+                disabled={loading}
+                rows = {4}
+                style = {{resize: 'none',display: 'flex',justifyContent: 'center'}}
             />
             <GradientButton
                 htmlType="submit"
