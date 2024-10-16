@@ -3,16 +3,86 @@ import { useState } from "react";
 import { Input } from 'antd';
 import { GradientButton } from "@lobehub/ui";
 
+const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
+    const options = [
+        {
+            label: "Quality",
+            name: "图像质量",
+            key: "ImageQuality",
+            values: [
+                { value: "hd", label: "High Quality (Slow)" },
+                { value: "standard", label: "Standard Quality (Fast)" }
+            ]
+        },
+        {
+            label: "Resolution",
+            name: "图像分辨率",
+            key: "ImageResolution",
+            values: [
+                { value: "1024x1024", label: "1024x1024" },
+                { value: "1024x1792", label: "1024x1792" },
+                { value: "1792x1024", label: "1792x1024" }
+            ]
+        },
+        {
+            label: "Image Style",
+            name: "图像风格",
+            key: "ImageStyle",
+            values: [
+                { value: "natural", label: "natural" },
+                { value: "vivid", label: "vivid" }
+            ]
+        },
+        {
+            label: "Prompt Style",
+            name: "提示词类型",
+            key: "ImagePromptStyle",
+            values: [
+                { value: "dalle3", label: "DALL-E3 native" },
+                { value: "gpt4", label: "GPT4 enhanced (ChatGPT+ default, slow)" },
+                { value: "as-is", label: "Use prompt AS-IS (by OpenAI API)" },
+                { value: "replicate", label: "Replicate detailed prompt (by OpenAI API)" },
+                { value: "debug", label: "Debug Mode (experimental)" }
+            ]
+        }
+    ];
+
+    return (
+        <>
+            {advancedSettingsVisible && (
+                <>
+                    <div style={{ border: '1px solid #353740', borderRadius: '5px', padding: '12px 16px' }}>
+                        {options.map(({ label, name, key, values }) => (
+                            <p key={key}>
+                                <label>
+                                    {label}: &nbsp;
+                                    <select defaultValue={settings[key]} name={name} onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}>
+                                        {values.map(({ value, label }) => (
+                                            <option key={value} value={value}>{label}</option>
+                                        ))}
+                                    </select>
+                                </label>
+                            </p>
+                        ))}
+                    </div>
+                    <br />
+                </>
+            )}
+        </>
+    );
+}
 
 const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
     const [ImagePrompt, setImagePrompt] = useState("");
-    const [ImageQuality, setImageQuality] = useState("standard"); // 'hd', 'standard'
-    const [ImageResolution, setImageResolution] = useState("1024x1024"); // 1024x1024, 1024x1792, 1792x1024
-    const [ImageStyle, setImageStyle] = useState("vivid"); // 'vivid' or 'natural'
-    const [ImagePromptStyle, setImagePromptStyle] = useState("dalle3"); // 'dalle3' => no pre-prompt D3 does prompt-enhancement; 'gpt4' => pass to GPT4 to enhance prompt
     const [advancedSettingsVisible, setAdvancedSettingsVisible] = useState(false);
+    const [settings, setSettings] = useState({
+        ImageQuality: "standard", // 'hd', 'standard'
+        ImageResolution: "1024x1024", // 1024x1024, 1024x1792, 1792x1024
+        ImageStyle: "vivid", // 'vivid' or 'natural'
+        ImagePromptStyle: "dalle3" // 'dalle3', 'gpt4', 'as-is', 'replicate', 'debug'
+    });
 
-    const {TextArea} = Input;
+    const { TextArea } = Input;
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -26,10 +96,10 @@ const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
                 },
                 body: JSON.stringify({
                     image_prompt: ImagePrompt,
-                    image_resolution: ImageResolution,
-                    image_quality: ImageQuality,
-                    image_style: ImageStyle,
-                    image_prompt_style: ImagePromptStyle
+                    image_resolution: settings.ImageResolution,
+                    image_quality: settings.ImageQuality,
+                    image_style: settings.ImageStyle,
+                    image_prompt_style: settings.ImagePromptStyle
                 }),
             });
 
@@ -51,68 +121,18 @@ const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
     return (
         <form onSubmit={onSubmit} style={{ textAlign: 'center' }}>
             <a href="#" onClick={() => setAdvancedSettingsVisible(!advancedSettingsVisible)}>点这里展开高级设定</a>
-            {advancedSettingsVisible && (
-                <>
-                    <div style={{ border: '1px solid #353740', borderRadius: '5px', padding: '12px 16px' }}>
-                        <p>
-                            <label>
-                                Quality: &nbsp;
-                                <select defaultValue={ImageQuality} name="图像质量" onChange={(e) => setImageQuality(e.target.value)}>
-                                    <option value="hd">High Quality (Slow)</option>
-                                    <option value="standard">Standard Quality (Fast)</option>
-                                </select>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                Resolution: &nbsp;
-                                <select defaultValue={ImageResolution} name="图像风格" onChange={(e) => setImageResolution(e.target.value)}>
-                                    <option value="1024x1024">1024x1024</option>
-                                    <option value="1024x1792">1024x1792</option>
-                                    <option value="1792x1024">1792x1024</option>
-                                </select>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                Image Style: &nbsp;
-                                <select defaultValue={ImageStyle} name="图像风格" onChange={(e) => setImageStyle(e.target.value)}>
-                                    <option value="natural">natural</option>
-                                    <option value="vivid">vivid</option>
-                                </select>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                Prompt Style: &nbsp;
-                                <select defaultValue={ImagePromptStyle} name="提示词类型" onChange={(e) => setImagePromptStyle(e.target.value)}>
-                                    <option value="dalle3">DALL-E3 native</option>
-                                    <option value="gpt4">GPT4 enhanced (ChatGPT+ default, slow)</option>
-                                    <option value="as-is">Use prompt AS-IS (by OpenAI API)</option>
-                                    <option value="replicate">Replicate detailed prompt (by OpenAI API)</option>
-                                    <option value="debug">Debug Mode (experimental)</option>
-                                </select>
-                            </label>
-                        </p>
-                    </div>
-                    <br />
-                </>
-            )}
-            {/* <DalleChatInputArea
-                name="image_prompt"
-                placeholder="A beautiful skyline of New York"
-                value={ImagePrompt}
-                onChange={(e) => setImagePrompt(e.target.value)}
-                disabled={loading}
-            /> */}
+            <OptionsInput 
+                settings={settings} 
+                setSettings={setSettings} 
+                advancedSettingsVisible={advancedSettingsVisible} />
             <TextArea
                 name="image_prompt"
                 placeholder="A beautiful skyline of New York"
                 value={ImagePrompt}
                 onChange={(e) => setImagePrompt(e.target.value)}
                 disabled={loading}
-                rows = {4}
-                style = {{resize: 'none',display: 'flex',justifyContent: 'center'}}
+                rows={4}
+                style={{ resize: 'none', display: 'flex', justifyContent: 'center' }}
             />
             <GradientButton
                 htmlType="submit"
