@@ -4,24 +4,31 @@ FROM node:18-alpine AS base
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json 和 package-lock.json，安装依赖项
-COPY package.json package-lock.json ./
-RUN npm install --loglevel verbose --registry=https://registry.npmmirror.com && npm cache clean --force
+# 复制 package.json 和 pnpm-lock.yaml，安装依赖项
+COPY package.json pnpm-lock.yaml ./
+
+# 安装 pnpm 并安装依赖
+RUN npm install -g pnpm --registry=https://registry.npmmirror.com && \
+    pnpm install --frozen-lockfile --loglevel=info --registry=https://registry.npmmirror.com && \
+    pnpm store prune
 
 # 复制所有源代码
 COPY . .
 
 # 构建应用
-RUN npm run build
+RUN pnpm run build
 
-# 清理开发依赖 (可选步骤，确保只保留生产依赖)
-RUN npm prune --production
+# 清理开发依赖（确保只保留生产依赖）
+RUN pnpm prune --prod
 
 # 使用更精简的基础镜像来运行生产环境
 FROM node:18-alpine AS production
 
 # 设置工作目录
 WORKDIR /app
+
+# 安装 pnpm
+RUN npm install -g pnpm --registry=https://registry.npmmirror.com
 
 # 复制构建成果和生产依赖
 COPY --from=base /app /app
@@ -33,4 +40,4 @@ ENV NODE_ENV production
 EXPOSE 3000
 
 # 启动 Next.js 应用
-CMD ["npm", "run", "start"]
+CMD ["pnpm", "start"]
