@@ -55,7 +55,7 @@ const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
                         {options.map(({ label, name, key, values }) => (
                             <p key={key}>
                                 <label>
-                                    {label}: &nbsp;
+                                    {name}: &nbsp;
                                     <select defaultValue={settings[key]} name={name} onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}>
                                         {values.map(({ value, label }) => (
                                             <option key={value} value={value}>{label}</option>
