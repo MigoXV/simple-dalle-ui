@@ -1,5 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
-let debug = true;
+let debug = false;
 
 
 const configuration = new Configuration({
