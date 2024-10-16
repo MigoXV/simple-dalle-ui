@@ -4,13 +4,18 @@ FROM node:18-alpine AS base
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json 和 package-lock.json，安装依赖项，构建应用
+# 复制 package.json 和 package-lock.json，安装依赖项
 COPY package.json package-lock.json ./
-RUN npm install && npm cache clean --force
+RUN npm install --loglevel verbose --registry=https://registry.npmmirror.com && npm cache clean --force
 
-# 复制源代码并构建应用
+# 复制所有源代码
 COPY . .
+
+# 构建应用
 RUN npm run build
+
+# 清理开发依赖 (可选步骤，确保只保留生产依赖)
+RUN npm prune --production
 
 # 使用更精简的基础镜像来运行生产环境
 FROM node:18-alpine AS production
@@ -19,7 +24,7 @@ FROM node:18-alpine AS production
 WORKDIR /app
 
 # 复制构建成果和生产依赖
-COPY --from=base /app/node_modules /app/.next /app/public /app/package.json ./
+COPY --from=base /app /app
 
 # 设置环境变量为生产模式
 ENV NODE_ENV production
