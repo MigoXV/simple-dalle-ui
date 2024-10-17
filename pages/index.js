@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <Head>
         <title>DALL·E绘图</title>
-        <link rel="icon" href="/image-gen/icon.png" />
+        <link rel="icon" href="/icon.png" />
       </Head>
       <ThemeProvider enableGlobalStyle={true} defaultThemeMode="light" enableWebfonts={true} customTheme={{ neutralColor: 'mauve', primaryColors: "orange" }}>
         <FrostedBackground>

@@ -112,7 +112,7 @@ export default async function (req, res) {
     let revised_prompt = response.data.data[0].revised_prompt;
 
     if (!image_url) {
-      image_url = `${req.protocol}://${req.headers.host}/image-gen/vai-dalle-gen.png`;
+      image_url = `${req.protocol}://${req.headers.host}/vai-dalle-gen.png`;
     }
 
     if(debug) {
