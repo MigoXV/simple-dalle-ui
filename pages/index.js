@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Vectura.ai - simple DALL-E3 FrontEnd</title>
-        <link rel="icon" href="/image-gen/icon.png" />
+        <title>DALL·E绘图</title>
+        <link rel="icon" href="/icon.png" />
       </Head>
       <ThemeProvider enableGlobalStyle={true} defaultThemeMode="light" enableWebfonts={true} customTheme={{ neutralColor: 'mauve', primaryColors: "orange" }}>
         <FrostedBackground>

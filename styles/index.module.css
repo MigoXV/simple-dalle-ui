@@ -1,15 +1,15 @@
 @font-face {
   font-family: "ColfaxAI";
-  src: url(/image-gen/fonts/ColfaxAIRegular.woff2) format("woff2"),
-    url(/image-gen/fonts/ColfaxAIRegular.woff) format("woff");
+  src: url(/fonts/ColfaxAIRegular.woff2) format("woff2"),
+    url(/fonts/ColfaxAIRegular.woff) format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "ColfaxAI";
-  src: url(/image-gen/fonts/ColfaxAIBold.woff2) format("woff2"),
-    url(/image-gen/fonts/ColfaxAIBold.woff) format("woff");
+  src: url(/fonts/ColfaxAIBold.woff2) format("woff2"),
+    url(/fonts/ColfaxAIBold.woff) format("woff");
   font-weight: bold;
   font-style: normal;
 }

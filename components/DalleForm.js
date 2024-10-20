@@ -10,8 +10,8 @@ const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
             name: "图像质量",
             key: "ImageQuality",
             values: [
-                { value: "hd", label: "High Quality (Slow)" },
-                { value: "standard", label: "Standard Quality (Fast)" }
+                { value: "hd", label: "高清（慢）" },
+                { value: "standard", label: "标准（快）" }
             ]
         },
         {
@@ -29,8 +29,8 @@ const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
             name: "图像风格",
             key: "ImageStyle",
             values: [
-                { value: "natural", label: "natural" },
-                { value: "vivid", label: "vivid" }
+                { value: "natural", label: "自然" },
+                { value: "vivid", label: "生动" }
             ]
         },
         {
@@ -38,11 +38,7 @@ const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
             name: "提示词类型",
             key: "ImagePromptStyle",
             values: [
-                { value: "dalle3", label: "DALL-E3 native" },
-                { value: "gpt4", label: "GPT4 enhanced (ChatGPT+ default, slow)" },
-                { value: "as-is", label: "Use prompt AS-IS (by OpenAI API)" },
-                { value: "replicate", label: "Replicate detailed prompt (by OpenAI API)" },
-                { value: "debug", label: "Debug Mode (experimental)" }
+                { value: "dalle3", label: "DALL-E3 原生" },
             ]
         }
     ];
@@ -55,7 +51,7 @@ const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
                         {options.map(({ label, name, key, values }) => (
                             <p key={key}>
                                 <label>
-                                    {label}: &nbsp;
+                                    {name}: &nbsp;
                                     <select defaultValue={settings[key]} name={name} onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}>
                                         {values.map(({ value, label }) => (
                                             <option key={value} value={value}>{label}</option>
@@ -73,7 +69,9 @@ const OptionsInput = ({ settings, setSettings, advancedSettingsVisible }) => {
 }
 
 const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
-    const [ImagePrompt, setImagePrompt] = useState("");
+    const default_image_prompt = "可爱的打领结戴帽子的小黑猫吃鱼照片。";
+
+    const [ImagePrompt, setImagePrompt] = useState(default_image_prompt);
     const [advancedSettingsVisible, setAdvancedSettingsVisible] = useState(false);
     const [settings, setSettings] = useState({
         ImageQuality: "standard", // 'hd', 'standard'
@@ -81,7 +79,7 @@ const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
         ImageStyle: "vivid", // 'vivid' or 'natural'
         ImagePromptStyle: "dalle3" // 'dalle3', 'gpt4', 'as-is', 'replicate', 'debug'
     });
-
+    
     const { TextArea } = Input;
 
     async function onSubmit(event) {
@@ -89,7 +87,7 @@ const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
 
         setLoading(true);
         try {
-            const response = await fetch("/image-gen/api/generate", {
+            const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -127,7 +125,7 @@ const DalleForm = ({ setResult, setRevisedPrompt, loading, setLoading }) => {
                 advancedSettingsVisible={advancedSettingsVisible} />
             <TextArea
                 name="image_prompt"
-                placeholder="A beautiful skyline of New York"
+                placeholder={default_image_prompt}
                 value={ImagePrompt}
                 onChange={(e) => setImagePrompt(e.target.value)}
                 disabled={loading}

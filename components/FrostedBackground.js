@@ -9,7 +9,7 @@ const FrostedBackground = ({ children }) => {
         <Layout
             style={{
                 height: '100vh',
-                backgroundImage: 'url(/image-gen/background.png)',
+                backgroundImage: 'url(/background.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 overflow: 'hidden', // 确保背景图片部分不滚动
